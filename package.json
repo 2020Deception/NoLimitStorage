@@ -1,6 +1,6 @@
 {
   "name": "nolimit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "no limit to this json storage life",
   "main": "lib",
   "scripts": {
@@ -24,6 +24,7 @@
     "require": [
       "babel-core/register"
     ],
-    "verbose": "true"
+    "verbose": "true",
+    "serial": "true"
   }
 }

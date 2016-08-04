@@ -2,17 +2,30 @@ import test from 'ava'
 import fs from 'fs'
 import NoLimit from '..'
 
-const testAppendix = __dirname+"/test.json"
+const foo = __dirname+"/test.json"
 
-test.cb('example exports correctly', (t) => {
-  var limit = new NoLimit({
-    anchor:testAppendix
-  })
-  fs.access(testAppendix, fs.R_OK | fs.W_OK, (err) => {
-    t.falsy(err, 'why the fuck is there an error??')
-
-    var content = fs.readFileSync(testAppendix, 'utf8')
-    t.is(content, "{}", 'why the fuck is there an error??')
+test.cb('example sets up correctly', (t) => {
+  try { fs.unlinkSync(foo) } catch (err) { console.log(err) }
+  var limit = new NoLimit({ filename: foo })
+  fs.access(foo, fs.R_OK | fs.W_OK, (err) => {
+    if (err) t.end(err, 'Why the fuck is there an error?? Some silly shit happened to the fizzile.')
+    var content = fs.readFileSync(foo, 'utf8')
+    t.is(content, "{}", 'why the fuck is there an error?? Some silly shit happened trying to read this dumb ass shit.')
     t.end()
   })
+})
+
+test ('example saves up correctly', (t) => {
+  var limit = new NoLimit({ filename: foo })
+  limit.stash({ key: 'key', value: 20 })
+  var result = fs.readFileSync(foo, 'utf8')
+  result = JSON.parse(result)
+  t.truthy(result['key'] === 20)
+})
+
+test ('example gets correctly', (t) => {
+  var limit = new NoLimit({ filename: foo })
+  limit.stash({ key: 'key', value: 20 })
+  var value = limit.fetch({ key: 'key' })
+  t.truthy(value === 20)
 })

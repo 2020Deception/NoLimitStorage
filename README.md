@@ -8,16 +8,26 @@ no limit to this json storage life
 
 ### Why should you care?
 
-Simple JSON storage that is compatible with the now server. It's just as bad as json-storage-kit
+Simple JSON storage that is compatible with the now server, and most bot servers. It's just as bad as json-storage-kit
 so this project makes things all good.
 
 ### Installation
 
-`npm install nolimit` (bout it bout like Master P)
+`npm install nolimit`
 
 ### Usage
 
 Import the library and use it.
+
+```js
+var NoLimit = require('nolimit')
+
+var nolimit = new NoLimit({ filename: 'nolimit.json' })
+
+nolimit.stash({ key: 'key', value: 'value' })
+var object = nolimit.fetch({ key: 'key' })
+console.log(object)
+```
 
 ### License & Contributing
 
